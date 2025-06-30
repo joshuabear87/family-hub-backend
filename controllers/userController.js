@@ -42,11 +42,12 @@ export const authUser = async (req, res) => {
     }
 
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
-    });
+  _id: user._id,
+  name: user.name,
+  email: user.email,
+  role: user.role,
+  token: generateToken(user._id),
+});
   } else {
     res.status(401).json({ message: 'Invalid email or password' });
   }
@@ -70,4 +71,27 @@ export const approveUser = async (req, res) => {
 export const getUsers = async (req, res) => {
   const users = await User.find({});
   res.json(users);
+};
+
+// Delete user
+export const deleteUser = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    res.status(404).json({ message: 'User not found' });
+    return;
+  }
+  await user.remove();
+  res.json({ message: 'User deleted' });
+};
+
+// Promote/Demote user
+export const updateUserRole = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    res.status(404).json({ message: 'User not found' });
+    return;
+  }
+  user.role = req.body.role || 'user';
+  await user.save();
+  res.json({ message: `User role updated to ${user.role}` });
 };

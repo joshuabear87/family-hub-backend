@@ -2,10 +2,14 @@ import Photo from '../models/Photo.js';
 import cloudinary from '../config/cloudinary.js';
 
 export const getPhotos = async (req, res) => {
-  const photos = await Photo.find({ user: req.user._id });
-  res.json(photos);
+  try {
+    const photos = await Photo.find({});
+    res.json(photos);
+  } catch (error) {
+    console.error('Error fetching photos:', error);
+    res.status(500).json({ message: 'Server error fetching photos' });
+  }
 };
-
 export const uploadPhoto = async (req, res) => {
   if (!req.file) {
     res.status(400).json({ message: 'No file uploaded' });

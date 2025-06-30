@@ -6,7 +6,7 @@ import upload from '../middleware/uploadMiddleware.js';
 const router = express.Router();
 
 router.route('/')
-  .get(protect, getPhotos)
+  .get(getPhotos)
   .post(protect, upload.single('image'), uploadPhoto);
 
 router.route('/:id')
