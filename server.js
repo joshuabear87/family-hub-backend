@@ -10,14 +10,12 @@ import incomeRoutes from './routes/incomeRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 
-dotenv.config();
-
 const app = express();
 
 dotenv.config();
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:5173', 
+  origin: process.env.CLIENT_URL,
   credentials: true, 
 };
 
