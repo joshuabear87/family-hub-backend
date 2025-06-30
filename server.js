@@ -10,16 +10,29 @@ import incomeRoutes from './routes/incomeRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 
-const app = express();
-
+import dotenv from 'dotenv';
 dotenv.config();
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  credentials: true, 
-};
+const app = express();
 
-app.use(cors(corsOptions));
+app.set('trust proxy', 1);
+
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'http://localhost:5173', 
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(express.json());
 
 // ROUTES
