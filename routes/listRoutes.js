@@ -9,6 +9,8 @@ import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
+console.log('🔗 List routes loaded');
+
 router.route('/')
   .post(protect, createList)
   .get(protect, getLists);

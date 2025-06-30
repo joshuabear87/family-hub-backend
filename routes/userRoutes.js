@@ -1,9 +1,18 @@
 import express from 'express';
-import { registerUser, authUser, approveUser, getUsers, deleteUser, updateUserRole } from '../controllers/userController.js';
+import {
+  registerUser,
+  authUser,
+  approveUser,
+  getUsers,
+  deleteUser,
+  updateUserRole,
+} from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { admin } from '../middleware/adminMiddleware.js';
 
 const router = express.Router();
+
+console.log('🔗 User routes loaded');
 
 router.post('/register', registerUser);
 router.post('/login', authUser);
