@@ -10,7 +10,6 @@ import incomeRoutes from './routes/incomeRoutes.js';
 import photoRoutes from './routes/photoRoutes.js';
 import eventRoutes from './routes/eventRoutes.js';
 
-import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
