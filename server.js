@@ -17,12 +17,12 @@ const app = express();
 app.set('trust proxy', 1);
 
 const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'http://localhost:5173', 
+  'http://localhost:5173',
+  'https://family-hub-frontend-56695bygh-joshua-atendido-bears-projects.vercel.app'
 ];
 
-app.use(cors({
-  origin: (origin, callback) => {
+const corsOptions = {
+  origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -30,8 +30,9 @@ app.use(cors({
     }
   },
   credentials: true,
-}));
+};
 
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // ROUTES
