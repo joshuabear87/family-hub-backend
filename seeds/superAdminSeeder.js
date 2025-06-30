@@ -20,7 +20,7 @@ const seedSuperAdmin = async () => {
       const superadmin = new User({
         name: 'Super Admin',
         email,
-        password: 'Atendidobear7330', // plaintext here; model hashes it before save
+        password: 'Atendidobear7330', 
         role: 'admin',
         approved: true,
       });
