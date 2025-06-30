@@ -28,3 +28,26 @@ export const deleteTodo = async (req, res) => {
   await todo.deleteOne();
   res.json({ message: 'Todo deleted' });
 };
+
+export const getTodos = async (req, res) => {
+  try {
+    const todos = await Todo.find({ user: req.user._id }); // adjust as needed
+    res.json(todos);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error fetching todos' });
+  }
+};
+
+export const createTodo = async (req, res) => {
+  try {
+    const todo = new Todo({
+      user: req.user._id,
+      text: req.body.text,
+    });
+    const createdTodo = await todo.save();
+    res.status(201).json(createdTodo);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error creating todo' });
+  }
+};
+
